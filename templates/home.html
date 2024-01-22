@@ -21,8 +21,9 @@
     {% endfor %}
     </select>
     <br>
-    <img id='image' height="250px">
+    <img id='image' height="250px" src = "https://i.ibb.co/PtFTSRy/output-01.jpg">
     <div id="output"></div>
+    <a href="http://www.google.com" id="link" hidden target="_blank" rel="noopener noreferrer">View this location on google maps</a>
     <div id="mapid"></div>
     <script>
         var map = L.map('mapid').setView([35.4444,139.6329], 16);
@@ -44,10 +45,12 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json' 
                 },
-                data: JSON.stringify(e.latlng),
+                data: JSON.stringify([e.latlng, document.getElementById('selfies').value]),
                 dataType: 'json',
                 success: function(response) {
                     document.getElementById('output').innerHTML = JSON.stringify(response.result);
+                    document.getElementById('link').href=response.map_url;
+                    document.getElementById('link').style.display = "block";
                 },
                 error: function(error){
                     console.log(error);
