@@ -32,6 +32,8 @@
             attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         L.control.scale().addTo(map);
+        var boundary = L.geoJSON.addTo(map);
+        boundary.addData(JSON.parse({{ boundary | tojson | safe}})
 
         var marker = L.marker()
 
