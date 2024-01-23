@@ -73,7 +73,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    with open('./static/boundary.geojson', r) as file:
+    with open('./static/boundary.geojson', 'r') as file:
         boundary = json.loads(file.read())
     return render_template('home.html', urls = urls, boundary = boundary)
 
