@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, g, jsonify, json
 from geopy import distance
+import json
 import os
 import math, numpy as np
 
@@ -72,7 +73,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html', urls = urls)
+    with open('./static/boundary.geojson', r) as file:
+        boundary = json.loads(file.read())
+    return render_template('home.html', urls = urls, boundary = boundary)
 
 @app.route('/linkstreetview', methods=['GET', 'POST'])
 def linkstreetview():
@@ -101,6 +104,7 @@ if __name__ == "__main__":
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
     app.run(host="127.0.0.1", port=8080, debug=True)
+
 
 
 
